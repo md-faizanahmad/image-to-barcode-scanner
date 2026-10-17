@@ -152,3 +152,86 @@ button:disabled {
     max-width: 100%;
   }
 }
+
+#ocr-section {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+#ocr-output {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font: inherit;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+#ocr-status,
+#ocr-confidence {
+  overflow-wrap: anywhere;
+  font-size: 0.875rem;
+}
+
+#extract-text-button {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  #extract-text-button {
+    width: fit-content;
+  }
+}
+
+#article-results {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.article-candidate-list {
+  display: grid;
+  gap: 12px;
+}
+
+.article-candidate {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.article-candidate label {
+  font-weight: 600;
+}
+
+.article-candidate input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #9ca3af;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.article-candidate p {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 0.875rem;
+}
+
+.article-candidate p[data-valid="true"] {
+  color: #166534;
+}
+
+.article-candidate p[data-valid="false"] {
+  color: #b42318;
+}

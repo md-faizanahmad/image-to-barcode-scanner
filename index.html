@@ -56,7 +56,31 @@
       <button id="clear-button" type="button" disabled>
         Clear image
       </button>
+
+
     </section>
+
+    <section id="ocr-section" aria-labelledby="ocr-heading">
+      <h2 id="ocr-heading">Extract manifest text</h2>
+
+      <button id="extract-text-button" type="button" disabled>
+        Extract text
+      </button>
+
+      <p id="ocr-status" role="status">
+        Upload an image to begin.
+      </p>
+
+      <label for="ocr-output">Recognized text</label>
+      <textarea id="ocr-output" rows="12" placeholder="Extracted text will appear here..."
+        spellcheck="false"></textarea>
+
+      <p id="ocr-confidence"></p>
+
+      <section id="article-results" aria-live="polite"></section>
+
+    </section>
+
   </main>
 
   <script type="module" src="/src/main.ts"></script>
