@@ -235,3 +235,80 @@ button:disabled {
 .article-candidate p[data-valid="false"] {
   color: #b42318;
 }
+
+.article-candidate-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.article-candidate {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.article-candidate label {
+  font-weight: 600;
+}
+
+.article-candidate input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #9ca3af;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.article-candidate p {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 0.875rem;
+}
+
+.article-candidate [data-valid="true"] {
+  color: #166534;
+}
+
+.article-candidate [data-valid="false"] {
+  color: #b42318;
+}
+
+.article-barcode {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 80px;
+  overflow: visible;
+  background: #fff;
+}
+
+.barcode-status {
+  color: #4b5563;
+}
+
+.remove-article-button {
+  width: 100%;
+  background: #4b5563;
+}
+
+@media (min-width: 640px) {
+  .article-candidate {
+    padding: 20px;
+  }
+
+  .article-barcode {
+    max-width: 420px;
+  }
+
+  .remove-article-button {
+    width: fit-content;
+  }
+}

@@ -4,6 +4,7 @@ import {
   extractArticleCandidates,
   type ArticleCandidate,
 } from "./modules/ocr/article-number";
+import { renderCode128 } from "./modules/barcode/barcode";
 
 const fileInput = document.querySelector<HTMLInputElement>("#manifest-file")!;
 
@@ -99,68 +100,115 @@ function renderArticleResults(candidates: ArticleCandidate[]): void {
 
   articleResults.replaceChildren();
 
-  const heading = document.createElement("h3");
-  heading.textContent = `Article candidates (${candidates.length})`;
+  const heading = document.createElement("h2");
+  heading.textContent = "Article numbers and barcodes";
   articleResults.append(heading);
 
-  if (candidates.length === 0) {
-    const message = document.createElement("p");
-    message.textContent =
-      "No article-number candidates found. Try cropping the article-number column.";
-    articleResults.append(message);
-    return;
-  }
+  const addButton = document.createElement("button");
+  addButton.type = "button";
+  addButton.textContent = "Add article number";
 
   const list = document.createElement("div");
   list.className = "article-candidate-list";
 
-  candidates.forEach((item, index) => {
-    const card = document.createElement("article");
-    card.className = "article-candidate";
+  function renderList(): void {
+    list.replaceChildren();
 
-    const label = document.createElement("label");
-    label.htmlFor = `article-candidate-${index}`;
-    label.textContent = `Candidate ${index + 1}`;
-
-    const input = document.createElement("input");
-    input.id = `article-candidate-${index}`;
-    input.type = "text";
-    input.value = item.suggestedCorrection ?? item.candidate;
-    input.autocomplete = "off";
-    input.spellcheck = false;
-    input.maxLength = 13;
-
-    const original = document.createElement("p");
-    original.textContent = `OCR: ${item.raw}`;
-
-    const status = document.createElement("p");
-
-    function updateStatus(): void {
-      const value = input.value.trim().toUpperCase();
-      const valid = /^[A-Z]{2}\d{9}IN$/.test(value);
-
-      status.textContent = valid
-        ? "Format valid — verify against the printed sheet."
-        : "Needs correction: expected 2 letters + 9 digits + IN.";
-
-      status.dataset.valid = String(valid);
+    if (candidates.length === 0) {
+      const empty = document.createElement("p");
+      empty.textContent =
+        "No article numbers yet. Add one manually or run OCR.";
+      list.append(empty);
     }
 
-    input.addEventListener("input", updateStatus);
-    updateStatus();
+    candidates.forEach((item, index) => {
+      const card = document.createElement("article");
+      card.className = "article-candidate";
 
-    card.append(label, input, original, status);
+      const label = document.createElement("label");
+      label.htmlFor = `article-number-${index}`;
+      label.textContent = `Article number ${index + 1}`;
 
-    if (item.suggestedCorrection) {
-      const suggestion = document.createElement("p");
-      suggestion.textContent = `Suggested correction: ${item.suggestedCorrection}`;
-      card.append(suggestion);
-    }
+      const input = document.createElement("input");
+      input.id = `article-number-${index}`;
+      input.type = "text";
+      input.value = item.suggestedCorrection ?? item.candidate;
+      input.autocomplete = "off";
+      input.spellcheck = false;
+      input.maxLength = 13;
+      input.placeholder = "AA123456789IN";
 
-    list.append(card);
+      const status = document.createElement("p");
+
+      const barcode = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg",
+      );
+
+      barcode.classList.add("article-barcode");
+
+      const barcodeStatus = document.createElement("p");
+      barcodeStatus.className = "barcode-status";
+
+      const removeButton = document.createElement("button");
+      removeButton.type = "button";
+      removeButton.textContent = "Remove";
+      removeButton.className = "remove-article-button";
+
+      function updateArticle(): void {
+        const value = input.value.trim().toUpperCase();
+        const valid = /^[A-Z]{2}\d{9}IN$/.test(value);
+
+        status.textContent = valid
+          ? "Format valid — verify against the manifest."
+          : "Invalid format: expected 2 letters, 9 digits, and IN.";
+
+        status.dataset.valid = String(valid);
+
+        const generated = renderCode128(barcode, value);
+
+        barcode.style.display = generated ? "block" : "none";
+
+        barcodeStatus.textContent = generated
+          ? "Code 128 barcode generated."
+          : "Enter a valid article number to generate its barcode.";
+      }
+
+      input.addEventListener("input", updateArticle);
+
+      removeButton.addEventListener("click", () => {
+        candidates.splice(index, 1);
+        renderList();
+      });
+
+      card.append(label, input, status, barcodeStatus, barcode, removeButton);
+
+      list.append(card);
+      updateArticle();
+    });
+  }
+
+  addButton.addEventListener("click", () => {
+    candidates.push({
+      raw: "",
+      candidate: "",
+      suggestedCorrection: null,
+      validFormat: false,
+      needsReview: true,
+      corrections: [],
+    });
+
+    renderList();
+
+    const inputs = list.querySelectorAll<HTMLInputElement>(
+      'input[id^="article-number-"]',
+    );
+
+    inputs[inputs.length - 1]?.focus();
   });
 
-  articleResults.append(list);
+  articleResults.append(addButton, list);
+  renderList();
 }
 
 fileInput.addEventListener("change", () => {
