@@ -1,13 +1,65 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>india-post-manifest-pwa</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#b42318" />
+  <title>India Post Manifest Scanner</title>
+</head>
+
+<body>
+  <main id="app">
+    <header>
+      <h1>India Post Manifest Scanner</h1>
+      <p>Upload a manifest sheet to extract its contents.</p>
+    </header>
+
+    <section aria-labelledby="upload-heading">
+      <h2 id="upload-heading">Upload manifest</h2>
+
+      <label for="manifest-file">Choose an image</label>
+      <input id="manifest-file" type="file" accept="image/*" />
+
+      <p id="file-status" role="status">
+        No image selected.
+      </p>
+
+
+      <div id="preview-container" hidden>
+        <div class="preview-toolbar">
+          <span>Manifest preview</span>
+          <button id="view-large-button" type="button">
+            View large
+          </button>
+        </div>
+
+        <div class="preview-image-container">
+          <img id="manifest-preview" alt="Selected manifest preview" />
+        </div>
+      </div>
+
+      <dialog id="image-viewer" aria-label="Large manifest preview">
+        <div class="viewer-toolbar">
+          <span>Full-size manifest</span>
+          <button id="close-viewer-button" type="button">
+            Close
+          </button>
+        </div>
+
+        <div class="viewer-content">
+          <img id="large-manifest-preview" alt="Full-size manifest" />
+        </div>
+      </dialog>
+
+
+      <button id="clear-button" type="button" disabled>
+        Clear image
+      </button>
+    </section>
+  </main>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
