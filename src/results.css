@@ -3,6 +3,7 @@
   color: #1f2937;
   background: #f3f4f6;
   font-synthesis: none;
+  text-rendering: optimizeLegibility;
 }
 
 * {
@@ -16,132 +17,152 @@ body {
 
 main {
   width: 100%;
-  max-width: 760px;
+  max-width: 600px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 12px;
+  background: #fff;
 }
 
-.results-header {
-  margin-bottom: 24px;
-}
-
-.results-header a {
-  display: inline-block;
-  margin-bottom: 16px;
-  color: #b42318;
-  text-decoration: none;
-}
-
-.results-header h1 {
-  margin: 0 0 8px;
-  font-size: 1.6rem;
-}
-
-.results-header p {
+h1 {
   margin: 0;
-  color: #6b7280;
+  font-size: 1.25rem;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+p {
+  margin: 0;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+header {
+  display: grid;
+  gap: 6px;
 }
 
 #results-status {
-  font-size: 0.9rem;
-  overflow-wrap: anywhere;
+  color: #4b5563;
+  font-size: 0.8125rem;
 }
 
 #barcode-list {
   display: grid;
-  gap: 12px;
+  gap: 10px;
+  margin-top: 16px;
 }
 
-.barcode-card {
+.article-candidate {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   min-width: 0;
-  padding: 14px;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
   background: #fff;
 }
 
-.barcode-card label {
+.article-candidate label {
+  font-size: 0.875rem;
   font-weight: 600;
 }
 
-.barcode-card input {
+.article-candidate input {
   width: 100%;
   min-width: 0;
-  padding: 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+  min-height: 40px;
+  padding: 8px 10px;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
   font: inherit;
   font-size: 16px;
   text-transform: uppercase;
 }
 
-.validation {
-  margin: 0;
-  font-size: 0.85rem;
-  overflow-wrap: anywhere;
+.article-candidate p {
+  font-size: 0.8125rem;
 }
 
-.validation[data-valid="true"] {
+.article-candidate [data-valid="true"] {
   color: #166534;
 }
 
-.validation[data-valid="false"] {
+.article-candidate [data-valid="false"] {
   color: #b42318;
 }
 
-.barcode-preview {
+.article-barcode {
   display: block;
   width: 100%;
   height: auto;
+  min-height: 50px;
   overflow: visible;
   background: #fff;
 }
 
-.results-actions {
-  position: sticky;
-  bottom: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin: 20px -16px -16px;
-  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-  border-top: 1px solid #e5e7eb;
-  background: #ffffff;
-}
-
 button {
-  min-height: 44px;
-  padding: 10px 12px;
+  min-height: 40px;
+  padding: 8px 12px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 7px;
   background: #b42318;
   color: #fff;
   font: inherit;
-  font-weight: 600;
   cursor: pointer;
 }
 
 button:disabled {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
-.remove-button {
+.remove-article-button {
+  width: 100%;
   background: #4b5563;
+}
+
+.actions {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 @media (min-width: 640px) {
   main {
-    padding: 28px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
   }
 
-  .results-actions {
-    position: static;
-    margin: 20px 0 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
+  .article-candidate {
+    padding: 12px;
   }
+
+  .article-barcode {
+    max-width: 420px;
+  }
+
+  .remove-article-button {
+    width: fit-content;
+  }
+
+  .actions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.results-actions {
+  margin-top: 19px;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+.results-actions #download-image {
+  background: green;
 }
