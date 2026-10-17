@@ -44,6 +44,9 @@ header {
   gap: 6px;
 }
 
+.back-button {
+  margin-top: 10px;
+}
 #results-status {
   color: #4b5563;
   font-size: 0.8125rem;
@@ -165,4 +168,46 @@ button:disabled {
 }
 .results-actions #download-image {
   background: green;
+}
+
+.number-crop {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  max-height: 100px;
+  object-fit: contain;
+  object-position: left center;
+  padding: 4px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #f8fafc;
+}
+
+.article-candidate button {
+  width: 100%;
+}
+
+.article-candidate button:empty {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .number-crop {
+    max-width: 360px;
+  }
+
+  .article-candidate button {
+    width: fit-content;
+  }
+}
+
+.article-candidate button:disabled {
+  opacity: 0.7;
+  background: #166534;
+  color: #fff;
+  cursor: default;
+}
+
+#results-status {
+  overflow-wrap: anywhere;
 }
