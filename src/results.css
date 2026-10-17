@@ -1,0 +1,147 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #1f2937;
+  background: #f3f4f6;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+main {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.results-header {
+  margin-bottom: 24px;
+}
+
+.results-header a {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #b42318;
+  text-decoration: none;
+}
+
+.results-header h1 {
+  margin: 0 0 8px;
+  font-size: 1.6rem;
+}
+
+.results-header p {
+  margin: 0;
+  color: #6b7280;
+}
+
+#results-status {
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+#barcode-list {
+  display: grid;
+  gap: 12px;
+}
+
+.barcode-card {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.barcode-card label {
+  font-weight: 600;
+}
+
+.barcode-card input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.validation {
+  margin: 0;
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+
+.validation[data-valid="true"] {
+  color: #166534;
+}
+
+.validation[data-valid="false"] {
+  color: #b42318;
+}
+
+.barcode-preview {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  background: #fff;
+}
+
+.results-actions {
+  position: sticky;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 20px -16px -16px;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  border-top: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+button {
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #b42318;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.remove-button {
+  background: #4b5563;
+}
+
+@media (min-width: 640px) {
+  main {
+    padding: 28px;
+  }
+
+  .results-actions {
+    position: static;
+    margin: 20px 0 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+}

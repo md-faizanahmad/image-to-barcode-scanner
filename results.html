@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#b42318" />
+    <title>Barcode Sheet | India Post</title>
+</head>
+
+<body>
+    <main>
+        <header class="results-header">
+            <a href="/">← Back to manifest</a>
+            <h1>Barcode sheet</h1>
+            <p>Edit article numbers and save a standalone image.</p>
+        </header>
+
+        <section id="results-page">
+            <p id="results-status" role="status">
+                Loading article numbers...
+            </p>
+
+            <div id="barcode-list"></div>
+
+            <div class="results-actions">
+                <button id="add-article" type="button">
+                    Add number
+                </button>
+                <button id="download-image" type="button">
+                    Save as PNG
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="/src/results.ts"></script>
+</body>
+
+</html>
